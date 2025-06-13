@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналитический отчет Stay-интервью с детализированными данными</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .metric-card { transition: transform 0.2s; }
+        .metric-card:hover { transform: translateY(-2px); }
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; page-break-after: auto; }
+        .section { margin-bottom: 2rem; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-chart-line text-blue-600 mr-3"></i>
+                Аналитический отчет по результатам Stay-интервью
+            </h1>
+            <div class="text-lg text-gray-600">
+                <p><strong>Период:</strong> 02.05.2025</p>
+                <p><strong>Общий объем данных:</strong> 687 интервью по 54 филиалам</p>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-clipboard-check text-green-600 mr-3"></i>
+                Исполнительное резюме
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="metric-card bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                    <div class="text-3xl font-bold text-blue-600">687</div>
+                    <div class="text-sm text-gray-600">Проведенных интервью</div>
+                </div>
+                <div class="metric-card bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                    <div class="text-3xl font-bold text-green-600">54</div>
+                    <div class="text-sm text-gray-600">Филиала охвачено</div>
+                </div>
+                <div class="metric-card bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                    <div class="text-3xl font-bold text-purple-600">9.2</div>
+                    <div class="text-sm text-gray-600">Средняя оценка руководителя</div>
+                </div>
+                <div class="metric-card bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                    <div class="text-3xl font-bold text-red-600">18.3%</div>
+                    <div class="text-sm text-gray-600">Главная проблема (бюрократия)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivating Factors Analysis -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-thumbs-up text-green-600 mr-3"></i>
+                Детальный анализ мотивирующих факторов
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border-collapse">
+                    <thead>
+                        <tr class="bg-green-100">
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Ранг</th>
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Мотивирующий фактор</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Количество упоминаний</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">% от общего числа</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Индекс важности</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">1</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Содержание работы</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">404</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">58.8%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Критически высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">2</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Команда и коллектив</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">306</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">44.5%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">3</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Руководство</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">197</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">28.7%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Средне-высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold">4</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Развитие и карьера</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">178</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">25.9%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Средне-высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">5</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Стабильность</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">100</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">14.6%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Средний</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">6</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Условия труда и льготы</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">56</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">8.2%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Низкий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">7</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Признание</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">31</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">4.5%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Низкий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">8</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Финансовая мотивация</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">30</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">4.4%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Низкий</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Demotivating Factors Analysis -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-thumbs-down text-red-600 mr-3"></i>
+                Детальный анализ демотивирующих факторов
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border-collapse">
+                    <thead>
+                        <tr class="bg-red-100">
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Ранг</th>
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Демотивирующий фактор</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Количество упоминаний</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">% от общего числа</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Уровень критичности</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">1</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Процессы и бюрократия</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">126</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-red-600">18.3%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Критический</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">2</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Высокая нагрузка</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">104</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-red-600">15.1%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">3</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Низкая оплата</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">82</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-red-600">11.9%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Высокий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">4</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Отсутствие развития</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">52</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">7.6%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Средний</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">5</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Проблемы с руководством</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">44</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">6.4%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Средний</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">6</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Проблемы в коллективе</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">36</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">5.2%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Низкий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">7</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Плохие условия труда</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">24</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">3.5%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Низкий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center">8</td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Неопределенность</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">6</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">0.9%</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">Минимальный</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Top 10 Branches Analysis -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-building text-blue-600 mr-3"></i>
+                Топ-10 филиалов: детальная статистика
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-blue-100">
+                            <th class="border border-gray-300 px-3 py-2 text-left font-semibold">Филиал</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">Интервью</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">Оценка рук.</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">Топ мотиватор</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">%</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">Топ демотиватор</th>
+                            <th class="border border-gray-300 px-3 py-2 text-center font-semibold">%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Корпоративный центр</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">201</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">9.2</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">67.7%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Процессы и бюрократия</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">20.4%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Коми филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">36</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">9.2</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Команда и коллектив</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">55.6%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Высокая нагрузка</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">13.9%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-green-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Красноярский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">34</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold text-green-600">9.6</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">35.3%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Высокая нагрузка</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">14.7%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-red-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Пермский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">25</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold text-red-600">8.1</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">64.0%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Процессы и бюрократия</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">24.0%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-green-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Филиал в Новгородской и Псковской областях</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">25</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold text-green-600">9.8</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">76.0%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Высокая нагрузка</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">44.0%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Ямало-Ненецкий филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">24</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">8.8</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">54.2%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Процессы и бюрократия</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">29.2%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Волгоградский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">23</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">8.7</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">73.9%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Низкая оплата</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">30.4%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-green-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Кабардино-Балкарский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">21</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold text-green-600">10.0</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Команда и коллектив</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">81.0%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Низкая оплата</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">28.6%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-green-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Белгородский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">20</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold text-green-600">9.9</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Развитие и карьера</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">75.0%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Процессы и бюрократия</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">45.0%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-3 py-2 font-medium">Саратовский филиал</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-bold">19</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">8.8</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Содержание работы</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-green-600">47.4%</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center">Низкая оплата</td>
+                            <td class="border border-gray-300 px-3 py-2 text-center font-semibold text-red-600">10.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <p><span class="bg-green-50 px-2 py-1 rounded">Зеленый фон</span> - филиалы с высокой оценкой руководства (9.6+)</p>
+                <p><span class="bg-red-50 px-2 py-1 rounded">Красный фон</span> - филиалы, требующие особого внимания (оценка ниже 8.5)</p>
+            </div>
+        </div>
+
+        <!-- Correlation Analysis -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-link text-purple-600 mr-3"></i>
+                Корреляционный анализ
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-green-600">Положительные корреляции с оценкой руководителя</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="font-medium">Упоминание руководства как мотиватора</span>
+                            <span class="font-bold text-green-600">+0.588</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="font-medium">Команда и коллектив</span>
+                            <span class="font-bold text-green-600">+0.547</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="font-medium">Высокая нагрузка (парадокс)</span>
+                            <span class="font-bold text-green-600">+0.401</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="font-medium">Содержание работы</span>
+                            <span class="font-bold text-green-600">+0.122</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-red-600">Отрицательные корреляции с оценкой руководителя</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                            <span class="font-medium">Проблемы с руководством</span>
+                            <span class="font-bold text-red-600">-0.223</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                            <span class="font-medium">Процессы и бюрократия</span>
+                            <span class="font-bold text-red-600">-0.103</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                <h4 class="font-semibold text-yellow-800 mb-2">Интерпретация результатов:</h4>
+                <ul class="text-sm text-yellow-700 space-y-1">
+                    <li>• Сильная связь между качеством руководства и его признанием сотрудниками</li>
+                    <li>• Командная работа напрямую влияет на восприятие руководителя</li>
+                    <li>• Парадокс высокой нагрузки: в филиалах с хорошими руководителями сотрудники готовы работать больше</li>
+                    <li>• Проблемы с руководством ожидаемо коррелируют с низкими оценками</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Branch Rating Table -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-trophy text-yellow-600 mr-3"></i>
+                Рейтинг филиалов по ключевым показателям
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-green-600">🏆 Лидеры (оценка руководства 9.5+)</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-medium">Кабардино-Балкарский</span>
+                            <span class="font-bold text-green-600">10.0</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-medium">Белгородский</span>
+                            <span class="font-bold text-green-600">9.9</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-medium">Новгородская/Псковская обл.</span>
+                            <span class="font-bold text-green-600">9.8</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-medium">Красноярский</span>
+                            <span class="font-bold text-green-600">9.6</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-red-600">⚠️ Требуют внимания (оценка менее 8.5)</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg border border-red-200">
+                            <span class="font-medium">Пермский</span>
+                            <span class="font-bold text-red-600">8.1</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <p class="font-semibold">Основные проблемы Пермского филиала:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Процессы и бюрократия: 24.0% жалоб</li>
+                            <li>Самая низкая оценка руководства среди топ-10</li>
+                            <li>Необходима работа с менеджментом</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Statistics -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-calculator text-indigo-600 mr-3"></i>
+                Детальная статистика по категориям
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-green-600">Мотивирующие факторы: абсолютные числа</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Содержание работы</span>
+                            <span class="font-bold">404 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Команда и коллектив</span>
+                            <span class="font-bold">306 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Руководство</span>
+                            <span class="font-bold">197 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Развитие и карьера</span>
+                            <span class="font-bold">178 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Стабильность</span>
+                            <span class="font-bold">100 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Условия труда и льготы</span>
+                            <span class="font-bold">56 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Признание</span>
+                            <span class="font-bold">31 упоминание</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Финансовая мотивация</span>
+                            <span class="font-bold">30 упоминаний</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-red-600">Демотивирующие факторы: абсолютные числа</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Процессы и бюрократия</span>
+                            <span class="font-bold">126 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Высокая нагрузка</span>
+                            <span class="font-bold">104 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Низкая оплата</span>
+                            <span class="font-bold">82 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Отсутствие развития</span>
+                            <span class="font-bold">52 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Проблемы с руководством</span>
+                            <span class="font-bold">44 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Проблемы в коллективе</span>
+                            <span class="font-bold">36 упоминаний</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Плохие условия труда</span>
+                            <span class="font-bold">24 упоминания</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Неопределенность</span>
+                            <span class="font-bold">6 упоминаний</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regional Analysis -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-map-marked-alt text-teal-600 mr-3"></i>
+                Региональный анализ: особенности по филиалам
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <h3 class="font-bold text-green-800 mb-3">🎯 Особенности лидеров</h3>
+                    <ul class="text-sm space-y-2 text-green-700">
+                        <li><strong>Кабардино-Балкарский:</strong> 81% упоминают команду</li>
+                        <li><strong>Белгородский:</strong> 75% ценят развитие</li>
+                        <li><strong>Новгородский:</strong> 76% довольны работой</li>
+                        <li><strong>Красноярский:</strong> Минимум конфликтов</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                    <h3 class="font-bold text-yellow-800 mb-3">⚖️ Смешанные результаты</h3>
+                    <ul class="text-sm space-y-2 text-yellow-700">
+                        <li><strong>Корпоративный центр:</strong> Высокое содержание работы, но бюрократия</li>
+                        <li><strong>Волгоградский:</strong> Хорошая работа, проблемы с оплатой</li>
+                        <li><strong>Ямало-Ненецкий:</strong> Процессные проблемы</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                    <h3 class="font-bold text-red-800 mb-3">🚨 Зоны риска</h3>
+                    <ul class="text-sm space-y-2 text-red-700">
+                        <li><strong>Пермский:</strong> Критически низкая оценка руководства</li>
+                        <li><strong>Новгородский:</strong> Парадокс: высокие оценки при высокой нагрузке</li>
+                        <li><strong>Белгородский:</strong> 45% жалуются на бюрократию</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-lightbulb text-orange-600 mr-3"></i>
+                Конкретные рекомендации с цифрами
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                    <h3 class="text-xl font-bold text-red-800 mb-3">🚨 КРИТИЧЕСКИЕ МЕРЫ (0-3 месяца)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-red-700 mb-2">1. Борьба с бюрократией (126 жалоб = 18.3%)</h4>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• Аудит процессов в Корпоративном центре (20.4% жалоб)</li>
+                                <li>• Упрощение документооборота в Белгородском филиале (45% жалоб)</li>
+                                <li>• Цель: снижение жалоб на бюрократию до 10% за 6 месяцев</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-red-700 mb-2">2. Снижение нагрузки (104 жалобы = 15.1%)</h4>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• Новгородский филиал: 44% перегружены</li>
+                                <li>• Красноярский филиал: 14.7% жалуются на нагрузку</li>
+                                <li>• Цель: перераспределение задач, снижение до 8%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-3">⚡ СРОЧНЫЕ МЕРЫ (3-6 месяцев)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-yellow-700 mb-2">3. Работа с Пермским филиалом (рейтинг 8.1)</h4>
+                            <ul class="text-sm text-yellow-600 space-y-1">
+                                <li>• Индивидуальная работа с руководством</li>
+                                <li>• Программа развития менеджерских компетенций</li>
+                                <li>• Цель: поднять рейтинг до 9.0+ за 6 месяцев</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-yellow-700 mb-2">4. Решение вопросов оплаты (82 жалобы = 11.9%)</h4>
+                            <ul class="text-sm text-yellow-600 space-y-1">
+                                <li>• Волгоградский: 30.4% недовольны оплатой</li>
+                                <li>• Кабардино-Балкарский: 28.6% жалуются</li>
+                                <li>• Аудит систем оплаты в проблемных филиалах</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-green-800 mb-3">📈 РАЗВИВАЮЩИЕ МЕРЫ (6-12 месяцев)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-green-700 mb-2">5. Тиражирование лучших практик</h4>
+                            <ul class="text-sm text-green-600 space-y-1">
+                                <li>• Кабардино-Балкарский: методы командообразования (81% успеха)</li>
+                                <li>• Белгородский: программы развития (75% эффективность)</li>
+                                <li>• Внедрение в филиалах с низкими показателями</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-green-700 mb-2">6. Усиление мотивирующих факторов</h4>
+                            <ul class="text-sm text-green-600 space-y-1">
+                                <li>• Содержание работы: 404 упоминания (58.8%)</li>
+                                <li>• Развитие программ интересных проектов</li>
+                                <li>• Укрепление командной работы (306 упоминаний)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quantified Action Plan -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-tasks text-purple-600 mr-3"></i>
+                План действий с KPI
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border-collapse">
+                    <thead>
+                        <tr class="bg-purple-100">
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Приоритет</th>
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Действие</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Текущий показатель</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Целевой показатель</th>
+                            <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Срок</th>
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Ответственные филиалы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-bold">КРИТИЧЕСКИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Снижение бюрократических процессов</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">18.3% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">10% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">6 месяцев</td>
+                            <td class="border border-gray-300 px-4 py-3">КЦ, Белгородский, Ямало-Ненецкий</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-bold">КРИТИЧЕСКИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Оптимизация рабочей нагрузки</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">15.1% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">8% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">4 месяца</td>
+                            <td class="border border-gray-300 px-4 py-3">Новгородский, Красноярский, Коми</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-bold">ВЫСОКИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Развитие руководящих кадров Пермского филиала</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">8.1 балла</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">9.0+ баллов</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">6 месяцев</td>
+                            <td class="border border-gray-300 px-4 py-3">Пермский</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-bold">ВЫСОКИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Пересмотр системы оплаты труда</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">11.9% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">7% жалоб</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">8 месяцев</td>
+                            <td class="border border-gray-300 px-4 py-3">Волгоградский, Кабардино-Балкарский</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-bold">СРЕДНИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Тиражирование лучших практик командообразования</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">44.5% упоминаний</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">55% упоминаний</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">12 месяцев</td>
+                            <td class="border border-gray-300 px-4 py-3">Все филиалы (основа: Кабардино-Балкарский)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-3 text-center"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-bold">СРЕДНИЙ</span></td>
+                            <td class="border border-gray-300 px-4 py-3 font-medium">Развитие программ профессионального роста</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">25.9% упоминаний</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-semibold text-green-600">35% упоминаний</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">12 месяцев</td>
+                            <td class="border border-gray-300 px-4 py-3">Все филиалы (основа: Белгородский)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gray-800 text-white rounded-lg p-8 text-center section">
+            <h3 class="text-xl font-bold mb-4">Итоговые выводы по цифрам</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-gray-700 p-4 rounded">
+                    <div class="text-2xl font-bold text-green-400">404</div>
+                    <div>упоминания интересной работы - главный мотиватор</div>
+                </div>
+                <div class="bg-gray-700 p-4 rounded">
+                    <div class="text-2xl font-bold text-red-400">126</div>
+                    <div>жалоб на бюрократию - главная проблема</div>
+                </div>
+                <div class="bg-gray-700 p-4 rounded">
+                    <div class="text-2xl font-bold text-blue-400">10.0</div>
+                    <div>максимальная оценка руководства (Кабардино-Балкарский)</div>
+                </div>
+                <div class="bg-gray-700 p-4 rounded">
+                    <div class="text-2xl font-bold text-yellow-400">8.1</div>
+                    <div>минимальная оценка руководства (Пермский)</div>
+                </div>
+            </div>
+            <div class="mt-6 text-gray-300">
+                <p>Отчет подготовлен на основе анализа 687 интервью по 54 филиалам</p>
+                <p>Дата формирования отчета: 02.05.2025</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
