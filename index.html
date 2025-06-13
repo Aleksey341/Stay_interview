@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный HR-анализ с Антитоп-10 филиалов</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .branch-row:hover {
+            background-color: #f3f4f6;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: none;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .status-critical { background-color: #fee2e2; color: #991b1b; }
+        .status-warning { background-color: #fef3c7; color: #92400e; }
+        .status-normal { background-color: #d1fae5; color: #065f46; }
+        .chart-container { height: 300px; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <div class="bg-blue-900 text-white p-6">
+        <h1 class="text-3xl font-bold mb-2">
+            <i class="fas fa-chart-line mr-3"></i>
+            Комплексный HR-анализ: Stay и Exit интервью
+        </h1>
+        <p class="text-blue-200">Интерактивный анализ удержания и оттока персонала с детализацией по филиалам</p>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="bg-white p-6 m-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+            Исполнительное резюме
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600">687</div>
+                <div class="text-sm text-gray-600">Stay-интервью</div>
+                <div class="text-xs text-blue-500">Средняя оценка: 9.2/10</div>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-red-600">1,127</div>
+                <div class="text-sm text-gray-600">Exit-интервью</div>
+                <div class="text-xs text-red-500">Средняя оценка: 6.3/10</div>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-gray-600">54</div>
+                <div class="text-sm text-gray-600">Филиала в анализе</div>
+                <div class="text-xs text-gray-500">Март-Июнь 2025</div>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600">226%</div>
+                <div class="text-sm text-gray-600">Разрыв по оплате</div>
+                <div class="text-xs text-orange-500">Stay 11.9% vs Exit 38.5%</div>
+            </div>
+        </div>
+        
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800">Критический разрыв в восприятии проблем</h3>
+                    <div class="mt-2 text-sm text-red-700">
+                        <p>Сотрудники в Stay-интервью в 3 раза реже упоминают проблемы с оплатой труда, чем это становится причиной увольнения. Требуется пересмотр системы обратной связи.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Antitop Selection -->
+    <div class="bg-white p-6 m-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            <i class="fas fa-chart-bar mr-2"></i>
+            Анализ проблемных филиалов
+        </h2>
+        
+        <div class="mb-4">
+            <label for="antitopSelect" class="block text-sm font-medium text-gray-700 mb-2">Выберите количество филиалов для анализа:</label>
+            <select id="antitopSelect" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <option value="5">Антитоп-5 самых проблемных филиалов</option>
+                <option value="10">Антитоп-10 самых проблемных филиалов</option>
+            </select>
+        </div>
+
+        <button id="buildAntitop" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-4">
+            <i class="fas fa-list-ol mr-2"></i>
+            Построить Антитоп филиалов
+        </button>
+
+        <div id="antitopResults" style="display: none;">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Место</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Филиал</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stay Оценка</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exit Оценка</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Увольнения</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Статус</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody id="antitopTableBody" class="bg-white divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparative Analysis -->
+    <div class="bg-white p-6 m-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            <i class="fas fa-balance-scale mr-2"></i>
+            Сравнительный анализ Stay vs Exit
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-lg font-semibold mb-3 text-green-700">
+                    <i class="fas fa-heart mr-2"></i>
+                    Топ мотивирующих факторов (Stay)
+                </h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                        <span>Содержание работы</span>
+                        <span class="font-bold text-green-600">58.8%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                        <span>Команда и коллектив</span>
+                        <span class="font-bold text-green-600">44.5%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                        <span>Руководство</span>
+                        <span class="font-bold text-green-600">28.7%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                        <span>Развитие и карьера</span>
+                        <span class="font-bold text-green-600">25.9%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-3 text-red-700">
+                    <i class="fas fa-door-open mr-2"></i>
+                    Топ причин увольнений (Exit)
+                </h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center p-2 bg-red-50 rounded">
+                        <span>Оплата труда</span>
+                        <span class="font-bold text-red-600">38.5%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-red-50 rounded">
+                        <span>Взаимоотношения с руководством</span>
+                        <span class="font-bold text-red-600">21.8%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-red-50 rounded">
+                        <span>Условия труда</span>
+                        <span class="font-bold text-red-600">16.3%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-red-50 rounded">
+                        <span>Отсутствие развития</span>
+                        <span class="font-bold text-red-600">13.5%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-lightbulb text-yellow-400"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-yellow-800">Ключевые разрывы в восприятии</h3>
+                    <div class="mt-2 text-sm text-yellow-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Оплата труда:</strong> Stay 11.9% → Exit 38.5% (+226% разрыв)</li>
+                            <li><strong>Руководство:</strong> Stay 6.4% → Exit 21.8% (+240% разрыв)</li>
+                            <li><strong>Условия труда:</strong> Stay 3.5% → Exit 16.3% (+366% разрыв)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Priority Recommendations -->
+    <div class="bg-white p-6 m-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            <i class="fas fa-tasks mr-2"></i>
+            Приоритетные рекомендации
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                <h3 class="font-bold text-red-700 mb-2">
+                    <i class="fas fa-fire mr-2"></i>
+                    Критические (0-1 месяц)
+                </h3>
+                <ul class="text-sm space-y-1 text-red-600">
+                    <li>• Срочный аудит системы оплаты труда</li>
+                    <li>• Интенсивная работа с худшими филиалами</li>
+                    <li>• Переобучение руководителей</li>
+                    <li>• Внедрение системы раннего предупреждения</li>
+                </ul>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                <h3 class="font-bold text-yellow-700 mb-2">
+                    <i class="fas fa-clock mr-2"></i>
+                    Высокий приоритет (1-3 месяца)
+                </h3>
+                <ul class="text-sm space-y-1 text-yellow-600">
+                    <li>• Корректировка должностных окладов</li>
+                    <li>• Программа развития управленческих компетенций</li>
+                    <li>• Улучшение условий труда</li>
+                    <li>• Внедрение системы 360° обратной связи</li>
+                </ul>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <h3 class="font-bold text-green-700 mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Средний приоритет (3-6 месяцев)
+                </h3>
+                <ul class="text-sm space-y-1 text-green-600">
+                    <li>• Развитие системы карьерного роста</li>
+                    <li>• Программы командообразования</li>
+                    <li>• Улучшение коммуникационных процессов</li>
+                    <li>• Внедрение системы признания достижений</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Branch Details -->
+    <div id="branchModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Branch data
+        const branchData = {
+            'Ханты-Мансийский филиал': {
+                stayRating: 8.8,
+                exitRating: 4.6,
+                exits: 47,
+                stayInterviews: 12,
+                stayProblems: [
+                    { problem: 'Высокая нагрузка', percent: 42 },
+                    { problem: 'Процессы и бюрократия', percent: 33 },
+                    { problem: 'Низкая оплата', percent: 25 }
+                ],
+                exitReasons: [
+                    { reason: 'Оплата труда', percent: 45 },
+                    { reason: 'Условия труда', percent: 32 },
+                    { reason: 'Взаимоотношения с руководством', percent: 28 }
+                ],
+                recommendations: [
+                    'Срочный пересмотр системы оплаты труда',
+                    'Улучшение условий труда в регионе',
+                    'Замена или переобучение руководящего состава'
+                ]
+            },
+            'Смоленский филиал': {
+                stayRating: 7.2,
+                exitRating: 5.2,
+                exits: 34,
+                stayInterviews: 18,
+                stayProblems: [
+                    { problem: 'Отсутствие развития', percent: 39 },
+                    { problem: 'Процессы и бюрократия', percent: 28 },
+                    { problem: 'Проблемы в коллективе', percent: 22 }
+                ],
+                exitReasons: [
+                    { reason: 'Отсутствие развития', percent: 41 },
+                    { reason: 'Оплата труда', percent: 35 },
+                    { reason: 'Взаимоотношения с руководством', percent: 24 }
+                ],
+                recommendations: [
+                    'Внедрение программ профессионального развития',
+                    'Корректировка системы оплаты',
+                    'Тимбилдинг и работа с корпоративной культурой'
+                ]
+            },
+            'Архангельский филиал': {
+                stayRating: 8.1,
+                exitRating: 5.4,
+                exits: 29,
+                stayInterviews: 15,
+                stayProblems: [
+                    { problem: 'Условия труда', percent: 47 },
+                    { problem: 'Низкая оплата', percent: 33 },
+                    { problem: 'Высокая нагрузка', percent: 27 }
+                ],
+                exitReasons: [
+                    { reason: 'Условия труда', percent: 52 },
+                    { reason: 'Оплата труда', percent: 38 },
+                    { reason: 'Изменения в компании', percent: 21 }
+                ],
+                recommendations: [
+                    'Модернизация рабочих мест',
+                    'Региональные надбавки к заработной плате',
+                    'Снижение рабочей нагрузки'
+                ]
+            },
+            'Курский филиал': {
+                stayRating: 7.8,
+                exitRating: 5.8,
+                exits: 26,
+                stayInterviews: 21,
+                stayProblems: [
+                    { problem: 'Процессы и бюрократия', percent: 38 },
+                    { problem: 'Проблемы с руководством', percent: 29 },
+                    { problem: 'Отсутствие развития', percent: 24 }
+                ],
+                exitReasons: [
+                    { reason: 'Взаимоотношения с руководством', percent: 42 },
+                    { reason: 'Оплата труда', percent: 31 },
+                    { reason: 'Отсутствие развития', percent: 27 }
+                ],
+                recommendations: [
+                    'Замена руководящего состава',
+                    'Оптимизация бизнес-процессов',
+                    'Создание индивидуальных планов развития'
+                ]
+            },
+            'Тульский филиал': {
+                stayRating: 8.3,
+                exitRating: 6.1,
+                exits: 23,
+                stayInterviews: 19,
+                stayProblems: [
+                    { problem: 'Высокая нагрузка', percent: 32 },
+                    { problem: 'Низкая оплата', percent: 26 },
+                    { problem: 'Процессы и бюрократия', percent: 21 }
+                ],
+                exitReasons: [
+                    { reason: 'Оплата труда', percent: 39 },
+                    { reason: 'Условия труда', percent: 26 },
+                    { reason: 'Взаимоотношения с руководством', percent: 22 }
+                ],
+                recommendations: [
+                    'Пересмотр нагрузки на сотрудников',
+                    'Увеличение заработной платы',
+                    'Улучшение рабочих условий'
+                ]
+            },
+            'Орловский филиал': {
+                stayRating: 7.9,
+                exitRating: 6.3,
+                exits: 21,
+                stayInterviews: 16,
+                stayProblems: [
+                    { problem: 'Отсутствие развития', percent: 31 },
+                    { problem: 'Процессы и бюрократия', percent: 25 },
+                    { problem: 'Низкая оплата', percent: 19 }
+                ],
+                exitReasons: [
+                    { reason: 'Отсутствие развития', percent: 38 },
+                    { reason: 'Оплата труда', percent: 29 },
+                    { reason: 'Изменения в компании', percent: 24 }
+                ],
+                recommendations: [
+                    'Программы карьерного роста',
+                    'Корректировка системы мотивации',
+                    'Лучшая коммуникация изменений'
+                ]
+            },
+            'Калужский филиал': {
+                stayRating: 8.0,
+                exitRating: 6.5,
+                exits: 19,
+                stayInterviews: 14,
+                stayProblems: [
+                    { problem: 'Процессы и бюрократия', percent: 36 },
+                    { problem: 'Высокая нагрузка', percent: 29 },
+                    { problem: 'Проблемы в коллективе', percent: 21 }
+                ],
+                exitReasons: [
+                    { reason: 'Оплата труда', percent: 37 },
+                    { reason: 'Взаимоотношения с руководством', percent: 26 },
+                    { reason: 'Условия труда', percent: 21 }
+                ],
+                recommendations: [
+                    'Упрощение бизнес-процессов',
+                    'Оптимизация рабочей нагрузки',
+                    'Работа с командным духом'
+                ]
+            },
+            'Брянский филиал': {
+                stayRating: 8.2,
+                exitRating: 6.7,
+                exits: 17,
+                stayInterviews: 13,
+                stayProblems: [
+                    { problem: 'Низкая оплата', percent: 38 },
+                    { problem: 'Отсутствие развития', percent: 31 },
+                    { problem: 'Условия труда', percent: 23 }
+                ],
+                exitReasons: [
+                    { reason: 'Оплата труда', percent: 41 },
+                    { reason: 'Отсутствие развития', percent: 29 },
+                    { reason: 'Условия труда', percent: 24 }
+                ],
+                recommendations: [
+                    'Повышение заработной платы',
+                    'Создание программ обучения',
+                    'Модернизация рабочих мест'
+                ]
+            },
+            'Липецкий филиал': {
+                stayRating: 8.4,
+                exitRating: 6.9,
+                exits: 15,
+                stayInterviews: 11,
+                stayProblems: [
+                    { problem: 'Процессы и бюрократия', percent: 27 },
+                    { problem: 'Высокая нагрузка', percent: 24 },
+                    { problem: 'Проблемы с руководством', percent: 18 }
+                ],
+                exitReasons: [
+                    { reason: 'Оплата труда', percent: 33 },
+                    { reason: 'Взаимоотношения с руководством', percent: 27 },
+                    { reason: 'Изменения в компании', percent: 20 }
+                ],
+                recommendations: [
+                    'Оптимизация процессов',
+                    'Балансировка нагрузки',
+                    'Коучинг для руководителей'
+                ]
+            },
+            'Тамбовский филиал': {
+                stayRating: 8.5,
+                exitRating: 7.1,
+                exits: 13,
+                stayInterviews: 10,
+                stayProblems: [
+                    { problem: 'Отсутствие развития', percent: 30 },
+                    { problem: 'Низкая оплата', percent: 20 },
+                    { problem: 'Процессы и бюрократия', percent: 20 }
+                ],
+                exitReasons: [
+                    { reason: 'Отсутствие развития', percent: 38 },
+                    { reason: 'Оплата труда', percent: 31 },
+                    { reason: 'Условия труда', percent: 15 }
+                ],
+                recommendations: [
+                    'Программы профессионального роста',
+                    'Система наставничества',
+                    'Корректировка оплаты'
+                ]
+            }
+        };
+
+        // Get antitop branches based on selection
+        function getAntitopBranches(count) {
+            const branches = Object.keys(branchData);
+            const sortedBranches = branches.sort((a, b) => {
+                const scoreA = branchData[a].exitRating;
+                const scoreB = branchData[b].exitRating;
+                return scoreA - scoreB; // ascending order (worst first)
+            });
+            
+            return sortedBranches.slice(0, count);
+        }
+
+        // Get status class based on exit rating
+        function getStatusClass(exitRating) {
+            if (exitRating < 6) return 'status-critical';
+            if (exitRating < 7) return 'status-warning';
+            return 'status-normal';
+        }
+
+        // Get status text based on exit rating
+        function getStatusText(exitRating) {
+            if (exitRating < 6) return 'Критический';
+            if (exitRating < 7) return 'Требует внимания';
+            return 'Удовлетворительно';
+        }
+
+        // Build antitop table
+        function buildAntitop() {
+            const selectedCount = document.getElementById('antitopSelect').value;
+            const antitopBranches = getAntitopBranches(parseInt(selectedCount));
+            const tableBody = document.getElementById('antitopTableBody');
+            
+            tableBody.innerHTML = '';
+            
+            antitopBranches.forEach((branch, index) => {
+                const data = branchData[branch];
+                const row = document.createElement('tr');
+                row.className = 'branch-row';
+                row.onclick = () => showBranchDetail(branch);
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${index < 3 ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'} font-bold">
+                            ${index + 1}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer">
+                        ${branch}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <span class="font-bold">${data.stayRating}</span>/10
+                        <div class="text-xs text-gray-500">${data.stayInterviews} интервью</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <span class="font-bold text-red-600">${data.exitRating}</span>/10
+                        <div class="text-xs text-gray-500">${data.exits} увольнений</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <span class="font-bold">${data.exits}</span>
+                        <div class="text-xs text-gray-500">за период</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(data.exitRating)}">
+                            ${getStatusText(data.exitRating)}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i>
+                            Детали
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            document.getElementById('antitopResults').style.display = 'block';
+        }
+
+        // Show branch details in modal
+        function showBranchDetail(branchName) {
+            const data = branchData[branchName];
+            const modal = document.getElementById('branchModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                    <i class="fas fa-building mr-2"></i>
+                    ${branchName}
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-700 mb-2">
+                            <i class="fas fa-heart mr-2"></i>
+                            Stay-анализ
+                        </h3>
+                        <div class="space-y-2">
+                            <div>Оценка руководства: <span class="font-bold text-blue-600">${data.stayRating}/10</span></div>
+                            <div>Количество интервью: <span class="font-bold">${data.stayInterviews}</span></div>
+                            <div class="mt-3">
+                                <div class="text-sm font-medium text-gray-700 mb-2">Топ проблем:</div>
+                                ${data.stayProblems.map(problem => 
+                                    `<div class="flex justify-between text-sm">
+                                        <span>${problem.problem}</span>
+                                        <span class="font-bold text-blue-600">${problem.percent}%</span>
+                                    </div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-red-700 mb-2">
+                            <i class="fas fa-door-open mr-2"></i>
+                            Exit-анализ
+                        </h3>
+                        <div class="space-y-2">
+                            <div>Оценка работодателя: <span class="font-bold text-red-600">${data.exitRating}/10</span></div>
+                            <div>Количество увольнений: <span class="font-bold">${data.exits}</span></div>
+                            <div class="mt-3">
+                                <div class="text-sm font-medium text-gray-700 mb-2">Причины увольнений:</div>
+                                ${data.exitReasons.map(reason => 
+                                    `<div class="flex justify-between text-sm">
+                                        <span>${reason.reason}</span>
+                                        <span class="font-bold text-red-600">${reason.percent}%</span>
+                                    </div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                    <h3 class="font-bold text-yellow-700 mb-2">
+                        <i class="fas fa-balance-scale mr-2"></i>
+                        Разрыв в восприятии
+                    </h3>
+                    <div class="text-sm text-yellow-700">
+                        <div>Разница в оценках: <span class="font-bold">${(data.stayRating - data.exitRating).toFixed(1)} балла</span></div>
+                        <div class="mt-2">
+                            ${data.stayRating - data.exitRating > 2 ? 
+                                '<i class="fas fa-exclamation-triangle mr-1"></i>Критический разрыв в восприятии проблем!' : 
+                                'Умеренный разрыв в восприятии'
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-700 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Рекомендации
+                    </h3>
+                    <ul class="text-sm text-green-700 space-y-1">
+                        ${data.recommendations.map(rec => `<li><i class="fas fa-check mr-2"></i>${rec}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Event listeners
+        document.getElementById('buildAntitop').addEventListener('click', buildAntitop);
+
+        // Modal close functionality
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('branchModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('branchModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Initialize with Antitop-5
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-build Antitop-5 on page load
+            setTimeout(buildAntitop, 500);
+        });
+    </script>
+</body>
+</html>
